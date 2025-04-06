@@ -4,7 +4,7 @@ import { redirect } from "next/navigation";
 export default async function ShortUrlRedirect({
   params,
 }: {
-  params: { shortId: string };
+  params: Promise<{ shortId: string }>;
 }) {
   const { shortId } = await params;
   console.log("params:::", shortId);
