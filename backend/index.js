@@ -1,3 +1,4 @@
+import cors from "cors";
 import dotenv from "dotenv";
 import express from "express";
 import connectDb from "./config/db.js";
@@ -7,7 +8,7 @@ import urlRoutes from "./routes/url.route.js";
 dotenv.config();
 
 const app = express();
-
+app.use(cors({ origin: "*", credentials: true }));
 app.use(express.json());
 app.use("/auth", authRoutes);
 app.use("/url", urlRoutes);

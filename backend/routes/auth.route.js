@@ -6,57 +6,74 @@ import cloudinary from "../config/cloudinary.js"; // Import Cloudinary config
 import passport from "../config/passport.js";
 import upload from "../config/upload.js"; // Import Multer config
 import authModel from "../model/auth.model.js";
-
 dotenv.config();
 
 const router = express.Router();
 
 // Signup route (manual with image upload)
 router.post("/signup", upload.single("profileImage"), async (req, res) => {
+  console.log("req.body for signup", req.body);
   try {
     const { name, email, password, verifyPassword } = req.body;
 
-    // Check for required fields
     if (!name || !email || !password || !verifyPassword) {
-      return res
-        .status(400)
-        .json({ success: false, message: "All fields required" });
-    }
-    if (password !== verifyPassword) {
-      return res
-        .status(400)
-        .json({ success: false, message: "Passwords do not match" });
+      return res.status(400).json({
+        success: false,
+        message: "All fields required",
+      });
     }
 
-    // Handle image upload to Cloudinary
+    if (password !== verifyPassword) {
+      return res.status(400).json({
+        success: false,
+        message: "Passwords do not match",
+      });
+    }
+
+    // ✅ Define helper function inside the route
+    const uploadFromBuffer = (fileBuffer) => {
+      return new Promise((resolve, reject) => {
+        const stream = cloudinary.uploader.upload_stream(
+          {
+            folder: "profile_images",
+            public_id: `${email}_profile`,
+          },
+          (error, result) => {
+            if (error) return reject(error);
+            resolve(result);
+          }
+        );
+        stream.end(fileBuffer);
+      });
+    };
+
     let profileImageUrl = "";
+
+    // ✅ Check and upload image
     if (!req.file) {
       profileImageUrl =
-        "https://res.cloudinary.com/dfudqqpnr/image/upload/v1717616400/profile_images/default_profile_image_zqzq8y.png";
+        "https://img.freepik.com/free-vector/blue-circle-with-white-user_78370-4707.jpg";
     } else {
-      const result = await cloudinary.uploader
-        .upload_stream(
-          { folder: "profile_images", public_id: `${email}_profile` }, // Unique public_id
-          (error, result) => {
-            if (error) throw error;
-            return result;
-          }
-        )
-        .end(req.file.buffer); // Upload from memory buffer
-      profileImageUrl = result.secure_url; // Get the secure URL
+      console.log("req.file for cloudinary", req.file);
+      const cloudinaryResult = await uploadFromBuffer(req.file.buffer);
+      profileImageUrl = cloudinaryResult.secure_url;
     }
+
     const hashPassword = await bcrypt.hash(password, 10);
     const verifyHashPassword = await bcrypt.hash(verifyPassword, 10);
+
     const user = await authModel.create({
       name,
       email,
       password: hashPassword,
       verifyPassword: verifyHashPassword,
-      profileImage: profileImageUrl || "", // Save Cloudinary URL or empty string
+      profileImage: profileImageUrl,
     });
+
     const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, {
       expiresIn: "1h",
     });
+
     res.status(200).json({
       success: true,
       message: "User created successfully",
@@ -69,6 +86,7 @@ router.post("/signup", upload.single("profileImage"), async (req, res) => {
       },
     });
   } catch (error) {
+    console.error(error);
     res.status(500).json({ success: false, message: error.message });
   }
 });

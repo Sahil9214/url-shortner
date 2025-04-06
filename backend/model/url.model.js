@@ -6,6 +6,10 @@ const urlSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
+    newUrl: {
+      type: String,
+      required: true,
+    },
     shortId: {
       type: String,
       required: true,
@@ -14,6 +18,15 @@ const urlSchema = new mongoose.Schema(
     expiresAt: {
       type: Date,
       required: true,
+    },
+    country: {
+      type: String,
+    },
+    browser: {
+      type: String,
+    },
+    device: {
+      type: String,
     },
     visitHistory: [{ timestamp: Number }],
     userId: {

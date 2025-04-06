@@ -1,6 +1,7 @@
+// routes/url.routes.js
 import dotenv from "dotenv";
 import express from "express";
-import jwt from "jsonwebtoken"; // For authentication (optional)
+import jwt from "jsonwebtoken";
 import shortid from "shortid";
 import urlModel from "../model/url.model.js";
 
@@ -8,9 +9,9 @@ dotenv.config();
 
 const router = express.Router();
 
-// Middleware to verify JWT (optional, if you want authenticated users only)
+// Middleware to verify JWT
 const verifyToken = (req, res, next) => {
-  const token = req.headers["authorization"]?.split(" ")[1]; // Bearer <token>
+  const token = req.headers["authorization"]?.split(" ")[1];
   if (!token)
     return res
       .status(401)
@@ -27,8 +28,7 @@ const verifyToken = (req, res, next) => {
 // Shorten URL
 router.post("/shorten", verifyToken, async (req, res) => {
   try {
-    const { originalUrl, expiresInDays = 7 } = req.body; // Default expiry: 7 days
-
+    const { originalUrl, expiresAt, country, browser, device } = req.body; // Frontend se expiresAt aa raha hai
     // Validate URL
     if (!originalUrl || !/^https?:\/\/[^\s$.?#].[^\s]*$/.test(originalUrl)) {
       return res.status(400).json({ success: false, message: "Invalid URL" });
@@ -36,31 +36,27 @@ router.post("/shorten", verifyToken, async (req, res) => {
 
     // Generate short ID
     const shortId = shortid.generate();
-
-    // Calculate expiry date
-    const expiresAt = new Date();
-    expiresAt.setDate(expiresAt.getDate() + expiresInDays);
-
-    // Create URL document
+    // Construct short URL with backend base URL
+    const shortUrl = `${process.env.BACKEND_BASE_URL}/${shortId}`; // e.g., http://localhost:8900/2CFcwZPaX
     const urlDoc = await urlModel.create({
       originalUrl,
       shortId,
-      expiresAt,
-      userId: req.userId, // Optional: Associate with user
+      expiresAt: new Date(expiresAt), // Frontend se aaya hua expiresAt
+      newUrl: shortUrl,
+      userId: req.userId,
+      country,
+      browser,
+      device,
     });
-
-    // Construct short URL
-    const shortUrl = `${process.env.BASE_URL}/${shortId}`; // e.g., http://localhost:3000/abcd123
-
     res.status(200).json({
       success: true,
       message: "URL shortened successfully",
-      shortUrl,
+      shortId,
+      newUrl: shortUrl, // Backend ka URL return karo
       expiresAt: urlDoc.expiresAt,
     });
   } catch (error) {
     if (error.code === 11000) {
-      // Duplicate shortId (rare with shortid)
       return res
         .status(400)
         .json({ success: false, message: "Try again, short ID collision" });
@@ -68,36 +64,58 @@ router.post("/shorten", verifyToken, async (req, res) => {
     res.status(500).json({ success: false, message: error.message });
   }
 });
-
+router.get("/counter", async (req, res) => {
+  const { token } = req.query;
+  console.log(token, "token-counter token valahai ye");
+  if (!token) {
+    return res
+      .status(401)
+      .json({ success: false, message: "No token provided" });
+  }
+  try {
+    const decoded = jwt.verify(token, process.env.JWT_SECRET);
+    const id = decoded.id;
+    const url = await urlModel.find({ userId: id });
+    res.status(200).json({ success: true, count: url.length, urls: url });
+  } catch (err) {
+    res.status(500).json({ success: false, message: err.message });
+  }
+});
 // Redirect short URL to original URL
 router.get("/:shortId", async (req, res) => {
   try {
     const { shortId } = req.params;
-
-    // Find URL document
     const urlDoc = await urlModel.findOne({ shortId });
+    console.log("Found URL Doc:", urlDoc);
+
     if (!urlDoc) {
+      console.log("Short URL not found in DB");
       return res
         .status(404)
         .json({ success: false, message: "Short URL not found" });
     }
 
-    // Check if expired
     if (new Date() > urlDoc.expiresAt) {
+      console.log("Short URL expired");
       return res
         .status(410)
         .json({ success: false, message: "Short URL has expired" });
     }
 
-    // Update visit history
     urlDoc.visitHistory.push({ timestamp: Date.now() });
     await urlDoc.save();
-
-    // Redirect to original URL
+    // 🔥 Redirect to original URL
     res.redirect(urlDoc.originalUrl);
+    res.status(200).json({
+      success: true,
+      originalUrl: urlDoc.originalUrl,
+    });
   } catch (error) {
+    console.error("Error in GET /:shortId:", error);
     res.status(500).json({ success: false, message: error.message });
   }
 });
+
+// Yeh route abhi incomplete hai, isko baad mein fix karenge agar zarurat padi
 
 export default router;
