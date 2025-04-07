@@ -212,9 +212,17 @@ export default function Home() {
                   >
                     <div className="flex items-center justify-between mb-2">
                       <div className="flex gap-1">
-                        <h2 className="truncate">
-                          Short URL: {shortUrl.newUrl}
-                        </h2>
+                        <div className="break-words max-w-full text-sm text-wrap">
+                          <span className="font-medium">Short URL:</span>{" "}
+                          <a
+                            href={shortUrl.newUrl}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="text-blue-500 hover:underline break-all"
+                          >
+                            {shortUrl.newUrl}
+                          </a>
+                        </div>
                         <Button
                           size="sm"
                           variant="ghost"
