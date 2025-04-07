@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 
@@ -15,7 +16,7 @@ import { DataTable } from "@/components/ui/data-table";
 import { HeatMapChart } from "@/components/ui/heat-map-chart";
 import { api } from "@/libs/axios.api";
 import { getCookies } from "@/libs/cookies";
-import { Clock, Link, Users } from "lucide-react";
+import { Link, Users } from "lucide-react";
 import { useEffect, useState } from "react";
 
 // Define the type for our URL data (matches columns.tsx)
@@ -118,20 +119,6 @@ export default function AnalyticsPage() {
               <div className="flex items-center justify-between">
                 <div className="text-2xl font-bold">{totalLinks}</div>
                 <Link className="h-4 w-4 text-neutral-500" />
-              </div>
-            </CardContent>
-          </Card>
-
-          <Card className="bg-neutral-900 border-neutral-800">
-            <CardHeader className="pb-2">
-              <CardTitle className="text-sm font-medium text-neutral-400">
-                Peak Time
-              </CardTitle>
-            </CardHeader>
-            <CardContent>
-              <div className="flex items-center justify-between">
-                <div className="text-2xl font-bold">{peakTime}</div>
-                <Clock className="h-4 w-4 text-neutral-500" />
               </div>
             </CardContent>
           </Card>
