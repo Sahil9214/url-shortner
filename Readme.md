@@ -5,7 +5,7 @@ Here's the full README code you can copy and paste:
 
 ShortLink is a full-stack URL shortener application built with modern technologies to help you create, manage, and analyze shortened URLs.
 
-![ShortLink Banner](https://github.com/user-attachments/assets/aa742bd9-a557-45db-bc6c-7c7022bca61b)
+<img src='https://github.com/user-attachments/assets/aa742bd9-a557-45db-bc6c-7c7022bca61b'/>
 
 ## ✨ Features
 
