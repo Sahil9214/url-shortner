@@ -1,6 +1,6 @@
 // app/[shortId]/page.tsx
 import { redirect } from "next/navigation";
-
+const url = "https://url-shortner-2-jwar.onrender.com";
 export default async function ShortUrlRedirect({
   params,
 }: {
@@ -10,7 +10,7 @@ export default async function ShortUrlRedirect({
   console.log("params:::", shortId);
   let data;
   try {
-    const res = await fetch(`${process.env.BACKEND_URL}/${shortId}`);
+    const res = await fetch(`${url}/${shortId}`);
     data = await res.json();
     console.log("data:::", data);
   } catch (error) {

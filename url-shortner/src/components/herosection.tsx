@@ -34,7 +34,7 @@ interface UrlResponse {
   browser?: string;
   device?: string;
 }
-
+const newUrl = "https://url-shortner-2-jwar.onrender.com";
 //In order to get the country, we need to use the ip address of the user.
 
 export default function Home() {
@@ -90,7 +90,7 @@ export default function Home() {
         device,
       });
 
-      const newShortUrl = `http://localhost:8900/url/${response.shortId}`;
+      const newShortUrl = `${newUrl}/url/${response.shortId}`;
       setShortUrl({
         newUrl: newShortUrl,
         expiresAt: response.expiresAt,

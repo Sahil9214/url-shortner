@@ -51,6 +51,7 @@ export default function AnalyticsPage() {
         country: url.country,
         browser: url.browser,
         device: url.device,
+        createdAt: url.createdAt, // ✅ include this
       }));
       setUrlData(urls);
 

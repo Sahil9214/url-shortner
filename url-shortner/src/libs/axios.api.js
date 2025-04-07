@@ -1,6 +1,6 @@
 import axios from "axios";
 import { getCookies } from "./cookies";
-const url = "http://localhost:8900";
+const url = "https://url-shortner-2-jwar.onrender.com";
 export const AUTH = "auth";
 export const URL = "url";
 
@@ -14,6 +14,7 @@ export const api = {
     }
   },
   login: async (payload) => {
+    console.log(url, "url");
     try {
       let res = await axios.post(`${url}/${AUTH}/login`, payload);
       return res.data;

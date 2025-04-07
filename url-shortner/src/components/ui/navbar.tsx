@@ -31,7 +31,12 @@ export function Navbar({ userImage }: NavbarProps) {
           )}
         </Button>
         <Link href="/analytics">
-          <Button variant="outline" size="icon" aria-label="Toggle theme">
+          <Button
+            variant="outline"
+            size="icon"
+            aria-label="Toggle theme"
+            className="cursor-pointer"
+          >
             <ChartArea className="h-5 w-5" />
           </Button>
         </Link>
