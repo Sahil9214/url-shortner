@@ -37,7 +37,7 @@ router.post("/shorten", verifyToken, async (req, res) => {
     // Generate short ID
     const shortId = shortid.generate();
     // Construct short URL with backend base URL
-    const shortUrl = `${process.env.BACKEND_BASE_URL}/${shortId}`; // e.g., http://localhost:8900/2CFcwZPaX
+    const shortUrl = `https://url-shortner-2-jwar.onrender.com/${shortId}`; // e.g., http://localhost:8900/2CFcwZPaX
     const urlDoc = await urlModel.create({
       originalUrl,
       shortId,
