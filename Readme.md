@@ -1,109 +1,91 @@
-Here's the full README code you can copy and paste:
+---
 
-````markdown
-# 🔗 ShortLink - Modern URL Shortener
+# 🔗 **ShortLink** — The Modern URL Shortener
 
-ShortLink is a full-stack URL shortener application built with modern technologies to help you create, manage, and analyze shortened URLs.
+> ⚡ A powerful, full-stack URL shortener built with cutting-edge technologies, designed for ease of use, performance, and insightful analytics.
 
-<img src='https://github.com/user-attachments/assets/aa742bd9-a557-45db-bc6c-7c7022bca61b'/>
+![ShortLink Preview](https://github.com/user-attachments/assets/aa742bd9-a557-45db-bc6c-7c7022bca61b)
+<img src='https://github.com/user-attachments/assets/aa742bd9-a557-45db-bc6c-7c7022bca61b'alt='url-shortner-poster' width='400px' height='600px'/>
+---
 
 ## ✨ Features
 
-- **URL Shortening**: Create short, memorable links from long URLs
-- **Analytics Dashboard**: Track click counts, geographic data, and referral sources
-- **User Authentication**: Secure sign-up and login functionality
-- **Copy to Clipboard**: One-click copy functionality for shortened URLs
-- **Responsive Design**: Optimized for both desktop and mobile devices
+- 🔗 **Smart URL Shortening** – Quickly turn long URLs into compact, shareable links
+- 📊 **Advanced Analytics** – View click counts, devices, browsers, and locations
+- 🔐 **User Authentication** – Secure sign-up and login system with JWT
+- 📋 **One-Click Copy** – Instantly copy shortened links to clipboard
+- 📱 **Responsive UI** – Fully optimized for desktop and mobile screens
+
+---
 
 ## 🛠️ Tech Stack
 
-### Frontend
+### 🧩 Frontend
 
-- **Next.js** - React framework for server-side rendering and static site generation
-- **TypeScript** - Type-safe JavaScript
-- **Tailwind CSS** - Utility-first CSS framework
-- **shadcn/ui** - Beautifully designed components built with Radix UI and Tailwind
-- **ua-parser-js** - Lightweight JavaScript-based User-Agent string parser
+- **Next.js** – React framework with SSR and SSG
+- **TypeScript** – Type-safe JavaScript for scalable development
+- **Tailwind CSS** – Utility-first CSS styling
+- **shadcn/ui** – Accessible components powered by Radix UI + Tailwind
+- **ua-parser-js** – Client device detection for analytics
 
-### Backend
+### 🔧 Backend
 
-- **Express.js** - Fast, unopinionated web framework for Node.js
-- **MongoDB** - NoSQL database for storing URL and user data
-- **JWT** - JSON Web Tokens for secure authentication
-- **bcrypt** - Password hashing for user security
+- **Express.js** – Minimal, fast Node.js server framework
+- **MongoDB** – Flexible NoSQL database for storing users and links
+- **JWT** – JSON Web Tokens for secure API authentication
+- **bcrypt** – Secure password hashing
+
+---
 
 ## 📋 Prerequisites
 
-Before you begin, ensure you have the following installed:
+Ensure you have the following installed:
 
-- Node.js (v16.x or higher)
-- npm or yarn
-- MongoDB (local installation or MongoDB Atlas account)
+- Node.js (v16 or higher)
+- npm or Yarn
+- MongoDB (local or [MongoDB Atlas](https://www.mongodb.com/cloud/atlas))
+
+---
 
 ## 🚀 Getting Started
 
-### Clone the repository
+### 📦 Clone the Repository
 
 ```bash
 git clone https://github.com/Sahil9214/url-shortner
 cd shortlink
 ```
-````
 
-### Frontend Setup
+---
+
+## 🧩 Frontend Setup
 
 ```bash
-# Navigate to frontend directory
 cd frontend
-
-# Install dependencies
-npm install
-# or
-yarn install
-
-# Create .env.local file
-cp env.local
-
-# Start development server
-npm run dev
-# or
-yarn dev
+npm install # or yarn install
+cp .env.local.example .env.local
+npm run dev # or yarn dev
 ```
 
-### Backend Setup
-
-```bash
-# Navigate to backend directory
-cd backend
-
-# Install dependencies
-npm install
-# or
-yarn install
-
-# Create .env file
-cp .env.example .env
-
-# Start development server
-npm run dev
-# or
-yarn dev
-```
-
-## 🔧 Configuration
-
-### Frontend Environment Variables
-
-Create a `.env.local` file in the frontend directory with the following variables:
+### Frontend Environment Variables (`.env.local`)
 
 ```env
 NEXT_PUBLIC_API_URL=http://localhost:5000/api
 NEXT_PUBLIC_BASE_URL=http://localhost:3000
 ```
 
-### Backend Environment Variables
+---
 
-Create a `.env` file in the backend directory with the following variables:
+## 🔧 Backend Setup
+
+```bash
+cd backend
+npm install # or yarn install
+cp .env.example .env
+npm run dev # or yarn dev
+```
+
+### Backend Environment Variables (`.env`)
 
 ```env
 PORT=5000
@@ -112,93 +94,106 @@ JWT_SECRET=your_jwt_secret_key
 JWT_EXPIRES_IN=7d
 ```
 
-## 📝 API Endpoints
-
-### Authentication
-
-- `POST /api/auth/signup` - Register a new user
-- `POST /api/auth/login` - Login a user
-
-### URLs
-
-- `POST /api/urls` - Create a new short URL
-- `GET /api/urls` - Get all URLs for authenticated user
-- `GET /api/urls/:shortId` - Get specific URL details
-- `GET /api/urls/:shortId/stats` - Get analytics for a specific URL
-- `DELETE /api/urls/:shortId` - Delete a URL
-
-## 📱 Pages
-
-### Home (`/`)
-
-The landing page where users can shorten URLs without logging in.
-
-### Dashboard (`/dashboard`)
-
-Overview of all shortened URLs for authenticated users.
-
-### Analytics (`/analytics/:shortId`)
-
-Detailed statistics and insights for each shortened URL.
-
-### Login (`/login`) & Signup (`/signup`)
-
-Authentication pages for user management.
-
-## 📊 Analytics Features
-
-ShortLink provides detailed analytics for each shortened URL:
-
-- Total clicks
-- Clicks over time (daily, weekly, monthly)
-- Device breakdown (desktop, mobile, tablet)
-- Browser statistics
-- Geographic distribution of clicks
-- Referral sources
-
-## 🔒 Security
-
-- Passwords are hashed using bcrypt
-- Authentication handled via JWT
-- Protected API routes require valid tokens
-- CSRF protection implemented
+---
 
 ## 🧪 Running Tests
 
 ```bash
-# Frontend tests
+# Frontend
 cd frontend
-npm run test
-# or
-yarn test
+npm run test # or yarn test
 
-# Backend tests
+# Backend
 cd backend
-npm run test
-# or
-yarn test
+npm run test # or yarn test
 ```
 
-## 📚 Contributing
+---
 
-1. Fork the repository
-2. Create your feature branch (`git checkout -b feature/amazing-feature`)
-3. Commit your changes (`git commit -m 'Add some amazing feature'`)
-4. Push to the branch (`git push origin feature/amazing-feature`)
-5. Open a Pull Request
+## 🛣️ API Endpoints
+
+### 🔐 Authentication
+
+| Method | Endpoint           | Description         |
+| ------ | ------------------ | ------------------- |
+| POST   | `/api/auth/signup` | Register new user   |
+| POST   | `/api/auth/login`  | Login existing user |
+
+### 🔗 URLs
+
+| Method | Endpoint                   | Description                         |
+| ------ | -------------------------- | ----------------------------------- |
+| POST   | `/api/urls`                | Create a shortened URL              |
+| GET    | `/api/urls`                | Fetch all URLs for the user         |
+| GET    | `/api/urls/:shortId`       | Get details of a specific URL       |
+| GET    | `/api/urls/:shortId/stats` | Fetch analytics for a shortened URL |
+| DELETE | `/api/urls/:shortId`       | Delete a specific URL               |
+
+---
+
+## 📱 Pages
+
+| Route            | Description                               |
+| ---------------- | ----------------------------------------- |
+| `/`              | Landing page (shorten URLs without login) |
+| `/dashboard`     | Dashboard for managing shortened URLs     |
+| `/analytics/:id` | Detailed analytics per URL                |
+| `/login`         | Login page                                |
+| `/signup`        | Sign-up page                              |
+
+---
+
+## 📊 Analytics Dashboard
+
+Gain insights into how your links perform:
+
+- ✅ Total clicks
+- 📆 Time-based click trends (daily, weekly, monthly)
+- 💻 Device distribution (desktop, mobile, tablet)
+- 🌐 Browser usage breakdown
+- 🌍 Geographic click distribution
+- 🔁 Referrer statistics
+
+---
+
+## 🔐 Security Measures
+
+- 🔒 Passwords hashed with **bcrypt**
+- 🔐 JWT-based route protection
+- 🚫 CSRF protection enabled
+- ✅ Secure token storage and verification
+
+---
+
+## 🤝 Contributing
+
+Want to make ShortLink better? Contributions are welcome!
+
+1. 🍴 Fork this repository
+2. 🔧 Create your feature branch: `git checkout -b feature/your-feature-name`
+3. ✅ Commit changes: `git commit -m "Add some feature"`
+4. 🚀 Push to the branch: `git push origin feature/your-feature-name`
+5. 📬 Open a Pull Request
+
+---
 
 ## 📄 License
 
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+This project is licensed under the **MIT License**.
+See the [LICENSE](LICENSE) file for more info.
 
-## 🙏 Acknowledgments
+---
 
-- [Next.js Documentation](https://nextjs.org/docs)
+## 🙌 Acknowledgments
+
+- [Next.js](https://nextjs.org/docs)
 - [Tailwind CSS](https://tailwindcss.com/)
-- [shadcn/ui Components](https://ui.shadcn.com/)
+- [shadcn/ui](https://ui.shadcn.com/)
 - [Express.js](https://expressjs.com/)
 - [MongoDB](https://www.mongodb.com/)
 
 ---
 
-Made with ❤️ by Utkarsh Singhal
+Made with ❤️ by **Utkarsh Singhal**
+
+---
