@@ -2,8 +2,6 @@
 
 ## ⚡A powerful, full-stack URL shortener built with cutting-edge technologies, designed for ease of use, performance, and insightful analytics.
 
-<img src='https://github.com/user-attachments/assets/aa742bd9-a557-45db-bc6c-7c7022bca61b'alt='url-shortner-poster' width='400px' height='600px'/>
-
 ## ✨ Features
 
 - 🔗 **Smart URL Shortening** – Quickly turn long URLs into compact, shareable links
