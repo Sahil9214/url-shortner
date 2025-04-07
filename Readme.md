@@ -1,12 +1,8 @@
----
-
 # 🔗 **ShortLink** — The Modern URL Shortener
 
-> ⚡ A powerful, full-stack URL shortener built with cutting-edge technologies, designed for ease of use, performance, and insightful analytics.
+## ⚡A powerful, full-stack URL shortener built with cutting-edge technologies, designed for ease of use, performance, and insightful analytics.
 
-![ShortLink Preview](https://github.com/user-attachments/assets/aa742bd9-a557-45db-bc6c-7c7022bca61b)
 <img src='https://github.com/user-attachments/assets/aa742bd9-a557-45db-bc6c-7c7022bca61b'alt='url-shortner-poster' width='400px' height='600px'/>
----
 
 ## ✨ Features
 
@@ -70,7 +66,7 @@ npm run dev # or yarn dev
 ### Frontend Environment Variables (`.env.local`)
 
 ```env
-NEXT_PUBLIC_API_URL=http://localhost:5000/api
+NEXT_PUBLIC_API_URL=http://localhost:5000
 NEXT_PUBLIC_BASE_URL=http://localhost:3000
 ```
 
@@ -114,20 +110,17 @@ npm run test # or yarn test
 
 ### 🔐 Authentication
 
-| Method | Endpoint           | Description         |
-| ------ | ------------------ | ------------------- |
-| POST   | `/api/auth/signup` | Register new user   |
-| POST   | `/api/auth/login`  | Login existing user |
+| Method | Endpoint       | Description         |
+| ------ | -------------- | ------------------- |
+| POST   | `/auth/signup` | Register new user   |
+| POST   | `/auth/login`  | Login existing user |
 
 ### 🔗 URLs
 
-| Method | Endpoint                   | Description                         |
-| ------ | -------------------------- | ----------------------------------- |
-| POST   | `/api/urls`                | Create a shortened URL              |
-| GET    | `/api/urls`                | Fetch all URLs for the user         |
-| GET    | `/api/urls/:shortId`       | Get details of a specific URL       |
-| GET    | `/api/urls/:shortId/stats` | Fetch analytics for a shortened URL |
-| DELETE | `/api/urls/:shortId`       | Delete a specific URL               |
+| Method | Endpoint        | Description                 |
+| ------ | --------------- | --------------------------- |
+| POST   | `/url/shorten`  | Create a shortened URL      |
+| GET    | `/url/:shortId` | Fetch all URLs for the user |
 
 ---
 
